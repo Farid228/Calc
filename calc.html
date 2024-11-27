@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .calculator {
+            width: 300px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            background-color: #333;
+            color: white;
+        }
+        .display {
+    width: 85%; 
+    height: 50px;
+    background: #ffffff;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: right;
+    padding: 10px;
+    box-sizing: border-box;
+    border: none;
+    color: #000000;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+        .button-clear {
+            width: 25%;
+            background-color: green;
+            color: white;
+            border: none;
+            font-size: 18px;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button-clear:hover {
+            background-color: #005700;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+        .button {
+            background-color: green;
+            color: white;
+            border: none;
+            font-size: 18px;
+            padding: 20px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #005700;
+        }
+        .button:active {
+            background-color: #003b00;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="top-bar">
+            <input id="display" class="display" value="0" readonly>
+            <button class="button-clear" onclick="clearDisplay()">C</button>
+        </div>
+        <div class="buttons">
+            <button class="button" onclick="press('1')">1</button>
+            <button class="button" onclick="press('2')">2</button>
+            <button class="button" onclick="press('3')">3</button>
+            <button class="button" onclick="press('/')">/</button>
+            <button class="button" onclick="press('4')">4</button>
+            <button class="button" onclick="press('5')">5</button>
+            <button class="button" onclick="press('6')">6</button>
+            <button class="button" onclick="press('*')">*</button>
+            <button class="button" onclick="press('7')">7</button>
+            <button class="button" onclick="press('8')">8</button>
+            <button class="button" onclick="press('9')">9</button>
+            <button class="button" onclick="press('-')">-</button>
+            <button class="button" onclick="press('0')">0</button>
+            <button class="button" onclick="press('.')">.</button>
+            <button class="button" onclick="calculate()">=</button>
+            <button class="button" onclick="press('+')">+</button>
+        </div>
+    </div>
+
+    <script>
+        let currentInput = '';
+
+        function press(value) {
+            const display = document.getElementById('display');
+            if (currentInput === '0' && value !== '.') {
+                currentInput = value;
+            } else {
+                currentInput += value;
+            }
+            display.value = currentInput;
+        }
+
+        function calculate() {
+            try {
+                const result = eval(currentInput);
+                currentInput = result.toString();
+                document.getElementById('display').value = currentInput;
+            } catch (error) {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            document.getElementById('display').value = '0';
+        }
+    </script>
+</body>
+</html>
